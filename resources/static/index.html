@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <script src="index.js"></script>
+
+    <title>Title</title>
+
+</head>
+<body>
+<div class="container" ng-controller="indexController">
+
+    <h3>Products List</h3>
+
+    <form novalidate ng-submit="loadProducts(pageIndex)">
+        <label>min</label>
+        <input type="number" ng-model="filters.min_price">
+        <label>max</label>
+        <input type="number" ng-model="filters.max_price">
+        <label>like a Product name</label>
+        <input type="text" ng-model="filters.title_part">
+        <p></p>
+        <button type="submit" class="btn bg-primary">Filter</button>
+    </form>
+    <p></p>
+    <table class="table table-hover">
+        <tr class="table-info">
+            <td>ID</td>
+            <td>Product name</td>
+            <td>Cost</td>
+            <td>Link</td>
+            <td>Add Product</td>
+            <td>Delete Product</td>
+
+        </tr>
+        <tbody>
+        <tr ng-repeat="p in ProductList">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}}</td>
+
+            <td>
+                <a class="btn-link" href="http://localhost:6868/app/products/{{p.id}}">link</a>
+                <!--                тут же нужен новая страница типа product.html со своим контроллером???-->
+            </td>
+            <td>
+                <button class="btn btn-info" ng-click="addToCart(p.id)">Add product in Cart</button>
+            </td>
+            <td>
+                <button class="btn btn-warning" ng-click="deleteProduct(p.id)">Delete product</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button class="btn-info" ng-click="loadProducts(pageIndex-1)" >Left</button>
+    <label>{{pageIndex}}</label>
+    <button class="btn-info " ng-click="loadProducts(pageIndex+1)">Right</button>
+
+    <p></p>
+
+    <p>My Cart</p>
+    <table class="table table-hover">
+        <tr class="table-info">
+            <td>ID</td>
+            <td>Product name</td>
+            <td>Cost</td>
+            <td>Link</td>
+            <td>Delete From Cart</td>
+
+        </tr>
+        <tbody>
+        <tr ng-repeat="p in CartList">
+            <td>{{p.id}}</td>
+            <td>{{p.title}}</td>
+            <td>{{p.price}}</td>
+
+            <td>
+                <a class="btn-link" href="http://localhost:6868/app/products/{{p.id}}">link</a>
+                <!--                тут же нужен новая страница типа product.html со своим контроллером???-->
+            </td>
+
+            <td>
+                <button class="btn btn-warning" ng-click="deleteFromCart(p.id)">Delete product</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form novalidate ng-submit="createProduct()">
+        <label>Name Product</label>
+        <input type="text" ng-model="new_product.title">
+        <label>Price product</label>
+        <input type="number" ng-model="new_product.price">
+        <p></p>
+        <button type="submit" class="btn bg-primary">Create</button>
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

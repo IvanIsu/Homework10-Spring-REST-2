@@ -1,0 +1,23 @@
+server:
+  port: 6868
+  servlet:
+    context-path: /app
+
+spring:
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=product_les_7
+    username: postgres
+    password:
+    driver-class-name: org.postgresql.Driver
+
+#    dbcp2:
+#      default-schema: product_les_7
+
+
+
